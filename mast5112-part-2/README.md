@@ -1,11 +1,18 @@
-# Sample Snack app
+Chef Menu Manager
 
-Open the `App.js` file to start writing some code. You can preview the changes directly on your phone or tablet by scanning the **QR code** or use the iOS or Android emulators. When you're done, click **Save** and share the link!
+A React Native application developed using Expo Snack that allows chefs to manage restaurant menu items.
 
-When you're ready to see everything that Expo provides (or if you want to use your own editor) you can **Download** your project and use it with [expo cli](https://docs.expo.dev/get-started/installation/#expo-cli)).
+Features
+Welcome screen with navigation buttons
+Add new menu items
+Select course category (Starter, Main Course, Dessert)
+View all menu items
+Automatic menu list updates
+Form validation and success messages
+Clear form and menu options
 
-All projects created in Snack are publicly available, so you can easily share the link to this project via link, or embed it on a web page with the `<>` button.
+<img width="402" height="874" alt="Home Screen" src="https://github.com/user-attachments/assets/5b64af0f-dcc6-40dc-be42-ff6fa07a8f2d" />
 
-If you're having problems, you can tweet to us [@expo](https://twitter.com/expo) or ask in our [forums](https://forums.expo.dev/c/expo-dev-tools/61) or [Discord](https://chat.expo.dev/).
+<img width="402" height="874" alt="Add Menu Item Screen" src="https://github.com/user-attachments/assets/5b095fce-0ee0-4b07-a7da-da3911b9c7ae" />
 
-Snack is Open Source. You can find the code on the [GitHub repo](https://github.com/expo/snack).
+<img width="402" height="874" alt="View Menu Items Screen" src="https://github.com/user-attachments/assets/40aba72d-7ddf-4f84-8442-b41f6a6e47ec" />
