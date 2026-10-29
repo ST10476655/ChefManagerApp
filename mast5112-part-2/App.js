@@ -9,55 +9,34 @@ import {
   Alert,
 } from "react-native";
 
+// Main Application Component
 export default function App() {
-  // Used to switch between screens
+
+  // Controls which screen is displayed
   const [currentScreen, setCurrentScreen] = useState("home");
 
-  // Stores form values
+  // Form input fields
   const [dishName, setDishName] = useState("");
   const [description, setDescription] = useState("");
   const [course, setCourse] = useState("");
   const [price, setPrice] = useState("");
 
-  // Stores menu items
+  // Stores all menu items
   const [menuItems, setMenuItems] = useState([]);
 
-  // Shows or hides course options
+  // Controls course dropdown visibility
   const [showDropdown, setShowDropdown] = useState(false);
 
-  // Save menu item
-  const saveItem = () => {
-    if (
-      dishName.trim() === "" ||
-      description.trim() === "" ||
-      course.trim() === "" ||
-      price.trim() === ""
-    ) {
-      Alert.alert("Error", "Please complete all fields.");
-      return;
-    }
+  // Search functionality
+  const [searchText, setSearchText] = useState("");
 
-    const newItem = {
-      id: Date.now().toString(),
-      dishName,
-      description,
-      course,
-      price,
-    };
+  // Filter functionality
+  const [filterCourse, setFilterCourse] = useState("All");
 
-    // Adds item and updates menu automatically
-    setMenuItems([...menuItems, newItem]);
+  // Stores ID of item currently being edited
+  const [editId, setEditId] = useState(null);
 
-    Alert.alert("Success", "Menu item saved successfully.");
-
-    // Clear form after saving
-    setDishName("");
-    setDescription("");
-    setCourse("");
-    setPrice("");
-  };
-
-  // Clear form
+  // Clears all form fields
   const clearForm = () => {
     setDishName("");
     setDescription("");
@@ -65,10 +44,174 @@ export default function App() {
     setPrice("");
   };
 
+  // Add new menu item or update existing item
+  const saveItem = () => {
+
+    // Validation
+    if (
+      dishName.trim() === "" ||
+      description.trim() === "" ||
+      course.trim() === "" ||
+      price.trim() === ""
+    ) {
+      Alert.alert(
+        "Error",
+        "Please complete all fields."
+      );
+      return;
+    }
+
+    // Ensure price contains numbers only
+    if (isNaN(price)) {
+      Alert.alert(
+        "Error",
+        "Price must be a valid number."
+      );
+      return;
+    }
+
+    // Update item if editing
+    if (editId) {
+
+      const updatedMenu = menuItems.map(
+        (item) =>
+          item.id === editId
+            ? {
+                ...item,
+                dishName,
+                description,
+                course,
+                price,
+              }
+            : item
+      );
+
+      setMenuItems(updatedMenu);
+
+      Alert.alert(
+        "Updated",
+        "Menu item updated successfully."
+      );
+
+      setEditId(null);
+
+    } else {
+
+      // Create new menu item
+      const newItem = {
+        id: Date.now().toString(),
+        dishName,
+        description,
+        course,
+        price,
+      };
+
+      // Add item to menu list
+      setMenuItems([
+        ...menuItems,
+        newItem,
+      ]);
+
+      Alert.alert(
+        "Success",
+        "Menu item added successfully."
+      );
+    }
+
+    // Clear form after save
+    clearForm();
+  };
+
+  // Load selected item into form for editing
+  const editItem = (item) => {
+
+    setDishName(item.dishName);
+    setDescription(item.description);
+    setCourse(item.course);
+    setPrice(item.price);
+
+    setEditId(item.id);
+
+    // Open Add/Edit screen
+    setCurrentScreen("add");
+  };
+
+  // Remove selected menu item
+  const deleteItem = (id) => {
+
+    Alert.alert(
+      "Delete Item",
+      "Are you sure you want to delete this menu item?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Delete",
+          onPress: () => {
+
+            setMenuItems(
+              menuItems.filter(
+                (item) => item.id !== id
+              )
+            );
+
+            Alert.alert(
+              "Success",
+              "Menu item deleted."
+            );
+          },
+        },
+      ]
+    );
+  };
+  // =========================
+  // MENU STATISTICS
+  // =========================
+
+  // Total number of menu items
+  const totalItems = menuItems.length;
+
+  // Average price calculation
+  const averagePrice =
+    totalItems > 0
+      ? (
+          menuItems.reduce(
+            (sum, item) =>
+              sum + Number(item.price),
+            0
+          ) / totalItems
+        ).toFixed(2)
+      : "0.00";
+
+  // Count starter items
+  const starterCount = menuItems.filter(
+    (item) =>
+      item.course === "Starter"
+  ).length;
+
+  // Count main course items
+  const mainCourseCount =
+    menuItems.filter(
+      (item) =>
+        item.course === "Main Course"
+    ).length;
+
+  // Count dessert items
+  const dessertCount = menuItems.filter(
+    (item) =>
+      item.course === "Dessert"
+  ).length;
+
+  // =========================
   // HOME SCREEN
+  // =========================
+
   if (currentScreen === "home") {
     return (
       <View style={styles.container}>
+
         <Text style={styles.appTitle}>
           Restaurant Menu Manager
         </Text>
@@ -77,24 +220,43 @@ export default function App() {
           Welcome Chef Christoffel
         </Text>
 
+        {/* Navigate to Add Menu Screen */}
         <TouchableOpacity
           style={styles.yellowButton}
-          onPress={() => setCurrentScreen("add")}
+          onPress={() =>
+            setCurrentScreen("add")
+          }
         >
           <Text style={styles.buttonText}>
             Add Menu Item
           </Text>
         </TouchableOpacity>
 
+        {/* Navigate to View Menu Screen */}
         <TouchableOpacity
           style={styles.yellowButton}
-          onPress={() => setCurrentScreen("view")}
+          onPress={() =>
+            setCurrentScreen("view")
+          }
         >
           <Text style={styles.buttonText}>
             View Menu Items
           </Text>
         </TouchableOpacity>
 
+        {/* Navigate to Statistics Screen */}
+        <TouchableOpacity
+          style={styles.greenButton}
+          onPress={() =>
+            setCurrentScreen("stats")
+          }
+        >
+          <Text style={styles.buttonText}>
+            Menu Statistics
+          </Text>
+        </TouchableOpacity>
+
+        {/* Exit Message */}
         <TouchableOpacity
           style={styles.redButton}
           onPress={() =>
@@ -104,35 +266,54 @@ export default function App() {
             )
           }
         >
-          <Text style={styles.buttonText}>Exit</Text>
+          <Text style={styles.buttonText}>
+            Exit
+          </Text>
         </TouchableOpacity>
+
       </View>
     );
   }
+    // =========================
+  // ADD / EDIT MENU SCREEN
+  // =========================
 
-  // ADD MENU SCREEN
   if (currentScreen === "add") {
     return (
       <ScrollView style={styles.container}>
+        
         <Text style={styles.screenTitle}>
-          Add Menu Item
+          {editId ? "Edit Menu Item" : "Add Menu Item"}
         </Text>
 
-        <Text style={styles.label}>Dish Name</Text>
+        {/* Dish Name */}
+        <Text style={styles.label}>
+          Dish Name
+        </Text>
+
         <TextInput
           style={styles.input}
           value={dishName}
           onChangeText={setDishName}
+          placeholder="Enter dish name"
         />
 
-        <Text style={styles.label}>Description</Text>
+        {/* Description */}
+        <Text style={styles.label}>
+          Description
+        </Text>
+
         <TextInput
           style={styles.input}
           value={description}
           onChangeText={setDescription}
+          placeholder="Enter description"
         />
 
-        <Text style={styles.label}>Course</Text>
+        {/* Course Dropdown */}
+        <Text style={styles.label}>
+          Course
+        </Text>
 
         <TouchableOpacity
           style={styles.input}
@@ -147,8 +328,10 @@ export default function App() {
           </Text>
         </TouchableOpacity>
 
+        {/* Dropdown Menu */}
         {showDropdown && (
           <View>
+
             <TouchableOpacity
               style={styles.dropdownOption}
               onPress={() => {
@@ -184,27 +367,36 @@ export default function App() {
                 Dessert
               </Text>
             </TouchableOpacity>
+
           </View>
         )}
 
-        <Text style={styles.label}>Price</Text>
+        {/* Price */}
+        <Text style={styles.label}>
+          Price
+        </Text>
 
         <TextInput
           style={styles.input}
           value={price}
           onChangeText={setPrice}
           keyboardType="numeric"
+          placeholder="Enter price"
         />
 
+        {/* Save or Update Button */}
         <TouchableOpacity
           style={styles.greenButton}
           onPress={saveItem}
         >
           <Text style={styles.buttonText}>
-            Save Item
+            {editId
+              ? "Update Item"
+              : "Save Item"}
           </Text>
         </TouchableOpacity>
 
+        {/* Clear Form */}
         <TouchableOpacity
           style={styles.redButton}
           onPress={clearForm}
@@ -214,56 +406,223 @@ export default function App() {
           </Text>
         </TouchableOpacity>
 
+        {/* Back Button */}
         <TouchableOpacity
           style={styles.redButton}
-          onPress={() => setCurrentScreen("home")}
+          onPress={() => {
+            clearForm();
+            setEditId(null);
+            setCurrentScreen("home");
+          }}
         >
-          <Text style={styles.buttonText}>Back</Text>
+          <Text style={styles.buttonText}>
+            Back
+          </Text>
         </TouchableOpacity>
+
       </ScrollView>
     );
   }
+  // =========================
+  // STATISTICS SCREEN
+  // =========================
 
+  if (currentScreen === "stats") {
+    return (
+      <View style={styles.container}>
+
+        <Text style={styles.screenTitle}>
+          Menu Statistics
+        </Text>
+
+        {/* Total Menu Items */}
+        <Text style={styles.statText}>
+          Total Menu Items: {totalItems}
+        </Text>
+
+        {/* Average Price */}
+        <Text style={styles.statText}>
+          Average Price: R{averagePrice}
+        </Text>
+
+        {/* Starter Count */}
+        <Text style={styles.statText}>
+          Starters: {starterCount}
+        </Text>
+
+        {/* Main Course Count */}
+        <Text style={styles.statText}>
+          Main Courses: {mainCourseCount}
+        </Text>
+
+        {/* Dessert Count */}
+        <Text style={styles.statText}>
+          Desserts: {dessertCount}
+        </Text>
+
+        {/* Back Button */}
+        <TouchableOpacity
+          style={styles.redButton}
+          onPress={() =>
+            setCurrentScreen("home")
+          }
+        >
+          <Text style={styles.buttonText}>
+            Back
+          </Text>
+        </TouchableOpacity>
+
+      </View>
+    );
+  }
+    // =========================
   // VIEW MENU SCREEN
+  // =========================
+
   return (
     <View style={styles.container}>
+      
       <Text style={styles.screenTitle}>
         Menu Items
       </Text>
 
+      {/* Search Box */}
+      <TextInput
+        style={styles.input}
+        placeholder="Search dish name..."
+        value={searchText}
+        onChangeText={setSearchText}
+      />
+
+      {/* Filter Buttons */}
+
+      <TouchableOpacity
+        style={styles.yellowButton}
+        onPress={() => setFilterCourse("Starter")}
+      >
+        <Text style={styles.buttonText}>
+          Starters
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.yellowButton}
+        onPress={() =>
+          setFilterCourse("Main Course")
+        }
+      >
+        <Text style={styles.buttonText}>
+          Main Courses
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.yellowButton}
+        onPress={() => setFilterCourse("Dessert")}
+      >
+        <Text style={styles.buttonText}>
+          Desserts
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.greenButton}
+        onPress={() => setFilterCourse("All")}
+      >
+        <Text style={styles.buttonText}>
+          Show All
+        </Text>
+      </TouchableOpacity>
+
+      {/* Menu List */}
+
       <ScrollView style={styles.menuBox}>
-        {menuItems.length === 0 ? (
-          <Text style={styles.emptyText}>
-            No menu items added yet.
-          </Text>
-        ) : (
-          menuItems.map((item) => (
-            <View key={item.id}>
+        {menuItems
+          .filter((item) =>
+            item.dishName
+              .toLowerCase()
+              .includes(
+                searchText.toLowerCase()
+              )
+          )
+          .filter(
+            (item) =>
+              filterCourse === "All" ||
+              item.course === filterCourse
+          )
+          .map((item) => (
+            <View
+              key={item.id}
+              style={styles.itemCard}
+            >
               <Text style={styles.courseTitle}>
                 {item.course}
               </Text>
 
               <Text style={styles.menuItem}>
-                • {item.dishName} - R{item.price}
+                {item.dishName}
               </Text>
 
               <Text style={styles.description}>
                 {item.description}
               </Text>
+
+              <Text style={styles.price}>
+                Price: R{item.price}
+              </Text>
+
+              {/* Edit Button */}
+
+              <TouchableOpacity
+                style={styles.greenButton}
+                onPress={() =>
+                  editItem(item)
+                }
+              >
+                <Text style={styles.buttonText}>
+                  Edit Item
+                </Text>
+              </TouchableOpacity>
+
+              {/* Delete Button */}
+
+              <TouchableOpacity
+                style={styles.redButton}
+                onPress={() =>
+                  deleteItem(item.id)
+                }
+              >
+                <Text style={styles.buttonText}>
+                  Delete Item
+                </Text>
+              </TouchableOpacity>
             </View>
-          ))
+          ))}
+
+        {menuItems.length === 0 && (
+          <Text style={styles.emptyText}>
+            No menu items available.
+          </Text>
         )}
       </ScrollView>
 
       <TouchableOpacity
         style={styles.redButton}
-        onPress={() => setCurrentScreen("home")}
+        onPress={() =>
+          setCurrentScreen("home")
+        }
       >
-        <Text style={styles.buttonText}>Back</Text>
+        <Text style={styles.buttonText}>
+          Back
+        </Text>
       </TouchableOpacity>
     </View>
   );
 }
+
+// =========================
+// STYLESHEET
+// =========================
 
 const styles = StyleSheet.create({
   container: {
@@ -274,40 +633,41 @@ const styles = StyleSheet.create({
 
   appTitle: {
     color: "#FFFFFF",
-    fontSize: 22,
+    fontSize: 28,
+    fontWeight: "bold",
     textAlign: "center",
     marginTop: 50,
   },
 
   welcome: {
     color: "#FFFFFF",
-    fontSize: 20,
+    fontSize: 22,
     textAlign: "center",
-    marginTop: 90,
+    marginTop: 70,
     marginBottom: 50,
   },
 
   screenTitle: {
     color: "#FFFFFF",
-    fontSize: 26,
+    fontSize: 28,
+    fontWeight: "bold",
     textAlign: "center",
-    marginVertical: 30,
+    marginVertical: 25,
   },
 
   label: {
     color: "#FFFFFF",
     fontSize: 16,
-    textAlign: "center",
     marginBottom: 5,
   },
 
   input: {
     backgroundColor: "#FFC800",
     borderRadius: 10,
-    height: 60,
-    justifyContent: "center",
+    height: 55,
     paddingHorizontal: 15,
     marginBottom: 15,
+    justifyContent: "center",
   },
 
   dropdownText: {
@@ -320,69 +680,87 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFC800",
     padding: 15,
     borderRadius: 10,
+    marginBottom: 10,
     alignItems: "center",
-    marginBottom: 8,
   },
 
   yellowButton: {
     backgroundColor: "#FFC800",
-    padding: 18,
-    borderRadius: 40,
+    borderRadius: 30,
+    padding: 15,
+    marginVertical: 5,
     alignItems: "center",
-    marginHorizontal: 25,
-    marginBottom: 25,
   },
 
   greenButton: {
     backgroundColor: "#39C85A",
-    padding: 18,
-    borderRadius: 40,
+    borderRadius: 30,
+    padding: 15,
+    marginVertical: 5,
     alignItems: "center",
-    marginHorizontal: 25,
-    marginTop: 20,
   },
 
   redButton: {
     backgroundColor: "#FF3737",
-    padding: 18,
-    borderRadius: 40,
+    borderRadius: 30,
+    padding: 15,
+    marginVertical: 5,
     alignItems: "center",
-    marginHorizontal: 25,
-    marginTop: 15,
   },
 
   buttonText: {
     color: "#FFFFFF",
     fontSize: 18,
+    fontWeight: "bold",
   },
 
   menuBox: {
     backgroundColor: "#DDDDDD",
+    borderRadius: 10,
     padding: 15,
-    minHeight: 400,
-    marginBottom: 20,
+    marginTop: 10,
+    marginBottom: 15,
+  },
+
+  itemCard: {
+    backgroundColor: "#FFFFFF",
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 15,
   },
 
   courseTitle: {
     fontSize: 20,
     fontWeight: "bold",
-    marginTop: 15,
   },
 
   menuItem: {
     fontSize: 18,
-    marginLeft: 10,
+    marginTop: 5,
   },
 
-  description: {
-    fontSize: 14,
-    marginLeft: 20,
+    description: {
+    fontSize: 15,
+    marginTop: 5,
+  },
+
+  price: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginTop: 8,
     marginBottom: 10,
+  },
+
+  statText: {
+    color: "#FFFFFF",
+    fontSize: 22,
+    textAlign: "center",
+    marginVertical: 10,
   },
 
   emptyText: {
     textAlign: "center",
+    fontSize: 18,
     marginTop: 20,
-    fontSize: 16,
   },
 });
