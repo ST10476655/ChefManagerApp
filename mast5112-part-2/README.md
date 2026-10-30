@@ -18,6 +18,8 @@ View Menu Items
 View Statistics
 
 Exit Application
+<img width="791" height="636" alt="image" src="https://github.com/user-attachments/assets/b6c342c7-0f03-4b0b-bee9-cd8f786f7ea3" />
+
 
 Menu Management
 
