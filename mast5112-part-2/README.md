@@ -1,136 +1,146 @@
-Chef Manager App
+****Chef Manager App**
 
-Assessment: POE Part 3
+**Part 3: POE**
+
 Application Overview
 
 Chef Manager App is a React Native mobile application developed using Expo Snack. The application allows chefs to manage restaurant menu items efficiently through a user-friendly interface.
 
 The application enables users to add, edit, update, delete, search, filter, and view menu items while also providing menu statistics.
 
-Features
+**Features**
 
-Home Screen
+>  Home Screen
 
-Add Menu Item
+>  Add Menu Item
 
-View Menu Items
+>  View Menu Items
 
-View Statistics
+>  View Statistics
 
-Exit Application
+>  Exit Application
+
 <img width="791" height="636" alt="image" src="https://github.com/user-attachments/assets/b6c342c7-0f03-4b0b-bee9-cd8f786f7ea3" />
 
 
-Menu Management
+**Menu Management**
 
-Add new menu items
+>  Add new menu items
 
-Edit existing menu items
+>  Edit existing menu items
 
-Update menu items
+>  Update menu items
 
-Delete menu items
+>  Delete menu items
 
-Search and Filter
+<img width="641" height="168" alt="image" src="https://github.com/user-attachments/assets/70c556c1-64d6-4a75-81ae-916acf7458d8" />
+
+
+**Search and Filter**
 
 Search menu items by dish name
 
 Filter menu items by:
 
-Starter
+>  Starter
 
-Main Course
+>  Main Course
 
-Dessert
+>  Dessert
 
-Show all menu items
+<img width="648" height="642" alt="image" src="https://github.com/user-attachments/assets/6467783e-762f-452f-bdd0-1653af9615d2" />
 
-Statistics
 
-Total Menu Items
+**Show all menu items**
 
-Average Menu Price
+>  Statistics
 
-Number of Starters
+>  Total Menu Items
 
-Number of Main Courses
+>  Average Menu Price
 
-Number of Desserts
+>  Number of Starters
 
-Validation
+>  Number of Main Courses
 
-Prevents empty fields
+>  Number of Desserts
 
-Ensures price is numeric
+<img width="642" height="440" alt="image" src="https://github.com/user-attachments/assets/4943c76b-6028-4c9e-b348-ea1aeb45dd30" />
 
-Displays error messages when validation fails
 
-User Experience
+**Validation**
 
-Navigation between screens
+>  Prevents empty fields
 
-Clear feedback messages
+>  Ensures price is numeric
 
-Consistent styling throughout the application
+>  Displays error messages when validation fails
 
-Part 3 Enhancements
+>  User Experience
 
-The following functionality was added to the Part 2 application:
+**Navigation between screens**
 
-Menu Item Management
+>  Clear feedback messages
 
-Added Edit functionality
+>  Consistent styling throughout the application
 
-Added Update functionality
+**Part 3 Enhancements
+Functionality**
 
-Added Delete functionality
+**Menu Management**
 
-Search and Filtering
+>  Added Edit functionality
 
-Added search by dish name
+>  Added Update functionality
 
-Added course filtering
+>  Added Delete functionality
 
-Added show all filter option
+**Search and Filtering**
 
-Statistics Screen
+>  Added search by dish name
 
-Added total menu item count
+>  Added course filtering
 
-Added average price calculation
+>  Added show all filter option
 
-Added starter count
+**Statistics Screen**
 
-Added main course count
+>  Added total menu item count
 
-Added dessert count
+>  Added average price calculation
 
-Improved Application Design
+>  Added starter count
 
-Enhanced code organisation
+>  Added main course count
 
-Added reusable functions
+>  Added dessert count
 
-Improved validation
+**Improved Application Design**
 
-Improved user feedback
+>  Enhanced code organisation
 
-Technologies Used
+>  Added reusable functions
 
-React Native
+**Improved validation**
 
-JavaScript
+>  Improved user feedback
 
-Expo Snack
+**Technologies Used**
 
-React Hooks (useState)
+>  React Native
 
-Screens Included
+>  JavaScript
 
-Home Screen
+>  Expo Snack
 
-Add/Edit Menu Item Screen
+>  React Hooks (useState)
 
-View Menu Items Screen
+**Screens Included**
 
-Statistics Screen
+>  Home Screen
+
+>  Add/Edit Menu Item Screen
+
+>  View Menu Items Screen
+
+>  Statistics Screen
