@@ -1,6 +1,7 @@
-**Chef Manager App
+****Chef Manager App**
 
-Assessment: POE Part 3**
+**Part 3: POE**
+
 Application Overview
 
 Chef Manager App is a React Native mobile application developed using Expo Snack. The application allows chefs to manage restaurant menu items efficiently through a user-friendly interface.
