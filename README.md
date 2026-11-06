@@ -31,6 +31,9 @@ Update menu items
 
 Delete menu items
 
+<img width="641" height="168" alt="image" src="https://github.com/user-attachments/assets/70c556c1-64d6-4a75-81ae-916acf7458d8" />
+
+
 Search and Filter
 
 Search menu items by dish name
@@ -42,6 +45,9 @@ Starter
 Main Course
 
 Dessert
+
+<img width="648" height="642" alt="image" src="https://github.com/user-attachments/assets/6467783e-762f-452f-bdd0-1653af9615d2" />
+
 
 Show all menu items
 
@@ -56,6 +62,9 @@ Number of Starters
 Number of Main Courses
 
 Number of Desserts
+
+<img width="642" height="440" alt="image" src="https://github.com/user-attachments/assets/4943c76b-6028-4c9e-b348-ea1aeb45dd30" />
+
 
 Validation
 
