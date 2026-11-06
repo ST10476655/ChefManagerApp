@@ -1,17 +1,136 @@
-Chef Menu Manager
+Chef Manager App
 
-A React Native application developed using Expo Snack that allows chefs to manage restaurant menu items.
+Assessment: POE Part 3
+Application Overview
 
-Features 
-Welcome screen with navigation buttons 
-Add new menu items Select course category (Starter, Main Course, Dessert) 
-View all menu items 
-Automatic menu list updates 
-Form validation and success messages 
-Clear form and menu options
+Chef Manager App is a React Native mobile application developed using Expo Snack. The application allows chefs to manage restaurant menu items efficiently through a user-friendly interface.
 
-<img width="402" height="874" alt="Add Menu Item Screen" src="https://github.com/user-attachments/assets/a1bc2e76-9927-423f-a048-63c8ab17b6b2" />
+The application enables users to add, edit, update, delete, search, filter, and view menu items while also providing menu statistics.
 
-<img width="402" height="874" alt="View Menu Items Screen" src="https://github.com/user-attachments/assets/feffd6b6-cbe3-4ac6-b5d4-0446cd8049a9" />
+Features
 
-<img width="402" height="874" alt="Home Screen" src="https://github.com/user-attachments/assets/a13b6990-61f1-4819-acd2-757d08addb13" />
+Home Screen
+
+Add Menu Item
+
+View Menu Items
+
+View Statistics
+
+Exit Application
+<img width="791" height="636" alt="image" src="https://github.com/user-attachments/assets/b6c342c7-0f03-4b0b-bee9-cd8f786f7ea3" />
+
+
+Menu Management
+
+Add new menu items
+
+Edit existing menu items
+
+Update menu items
+
+Delete menu items
+
+Search and Filter
+
+Search menu items by dish name
+
+Filter menu items by:
+
+Starter
+
+Main Course
+
+Dessert
+
+Show all menu items
+
+Statistics
+
+Total Menu Items
+
+Average Menu Price
+
+Number of Starters
+
+Number of Main Courses
+
+Number of Desserts
+
+Validation
+
+Prevents empty fields
+
+Ensures price is numeric
+
+Displays error messages when validation fails
+
+User Experience
+
+Navigation between screens
+
+Clear feedback messages
+
+Consistent styling throughout the application
+
+Part 3 Enhancements
+
+The following functionality was added to the Part 2 application:
+
+Menu Item Management
+
+Added Edit functionality
+
+Added Update functionality
+
+Added Delete functionality
+
+Search and Filtering
+
+Added search by dish name
+
+Added course filtering
+
+Added show all filter option
+
+Statistics Screen
+
+Added total menu item count
+
+Added average price calculation
+
+Added starter count
+
+Added main course count
+
+Added dessert count
+
+Improved Application Design
+
+Enhanced code organisation
+
+Added reusable functions
+
+Improved validation
+
+Improved user feedback
+
+Technologies Used
+
+React Native
+
+JavaScript
+
+Expo Snack
+
+React Hooks (useState)
+
+Screens Included
+
+Home Screen
+
+Add/Edit Menu Item Screen
+
+View Menu Items Screen
+
+Statistics Screen
