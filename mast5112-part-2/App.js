@@ -137,35 +137,20 @@ export default function App() {
   };
 
   // Remove selected menu item
-  const deleteItem = (id) => {
+const deleteItem = (id) => {
 
-    Alert.alert(
-      "Delete Item",
-      "Are you sure you want to delete this menu item?",
-      [
-        {
-          text: "Cancel",
-          style: "cancel",
-        },
-        {
-          text: "Delete",
-          onPress: () => {
+  const updatedMenu = menuItems.filter(
+    (item) => item.id !== id
+  );
 
-            setMenuItems(
-              menuItems.filter(
-                (item) => item.id !== id
-              )
-            );
+  setMenuItems(updatedMenu);
 
-            Alert.alert(
-              "Success",
-              "Menu item deleted."
-            );
-          },
-        },
-      ]
-    );
-  };
+  Alert.alert(
+    "Success",
+    "Menu item deleted successfully."
+  );
+
+};
   // =========================
   // MENU STATISTICS
   // =========================
